@@ -221,6 +221,32 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  is_gapps = target_info.GetBuildProp("ro.serasa.version").endswith("-gapps")
+  androidver = target_info.GetBuildProp("ro.build.version.release")
+  serasaver = target_info.GetBuildProp("ro.serasa.build.version")
+  build_id = target_info.GetBuildProp("ro.build.id")
+  build_date = target_info.GetBuildProp("ro.serasa.build.date")
+  securitypatch = target_info.GetBuildProp("ro.build.version.security_patch")
+  serasadevice = target_info.GetBuildProp("ro.serasa.device")
+
+  script.Print("-------------------------------------------------")
+  script.Print("    _____                            ____  _____ ")
+  script.Print("   / ___/___  _________ __________ _/ __ \/ ___/ ")
+  script.Print("   \__ \/ _ \/ ___/ __ `/ ___/ __ `/ / / /\__ \  ")
+  script.Print("  ___/ /  __/ /  / /_/ (__  ) /_/ / /_/ /___/ /  ")
+  script.Print(" /____/\___/_/   \__,_/____/\__,_/\____//____/   ")
+  script.Print("-------------------------------------------------")
+  script.Print("Android Version: %s"%(androidver))
+  script.Print("Serasa Version: %s"%(serasaver))
+  script.Print("Build ID: %s"%(build_id))
+  script.Print("Build Date: %s"%(build_date))
+  script.Print("Security Patch: %s"%(securitypatch))
+  script.Print("Device: %s"%(serasadevice))
+  if is_gapps:
+    script.Print("GApps Build: Yes")
+  else:
+    script.Print("GApps Build: No")
+
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
